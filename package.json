@@ -47,9 +47,6 @@
     "vitest-fixture": "0.5.2",
     "vue": "3.3.8"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "np": {},
   "engines": {
     "node": ">=16.0.0"
