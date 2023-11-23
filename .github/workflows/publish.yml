@@ -16,12 +16,12 @@ jobs:
           cache: npm
           cache-dependency-path: 'package-lock.json'
           registry-url: 'https://registry.npmjs.org'
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: npm ci
       - run: npm run build
       - run: git config user.name "GitHub Action"
       - run: git config user.email "action@github.com"
       - run: npm version patch -m "Bump version to %s"
-      - run: git push origin main
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: git push origin main
