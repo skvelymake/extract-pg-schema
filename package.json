@@ -19,7 +19,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . -f visualstudio --report-unused-disable-directives --ext .js,.ts",
-    "test": "vitest run",
+    "test": "vitest run --threads false",
     "version": "npm run build",
     "docs:prep": "tsc && npx api-extractor run --local --verbose && npx api-documenter markdown --input-folder=./temp/ --output-folder=./docs-src/api && rm -rf ./temp",
     "docs:dev": "npm run docs:prep && vitepress dev docs-src",
