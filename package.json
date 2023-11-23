@@ -5,7 +5,7 @@
     "postgresql",
     "schema"
   ],
-  "repository": "git@github.com:kristiandupont/extract-pg-schema.git",
+  "repository": "https://github.com/skvelymake/extract-pg-schema.git",
   "license": "MIT",
   "author": {
     "name": "Kristian Dupont",
@@ -46,6 +46,9 @@
     "vitepress": "1.0.0-rc.25",
     "vitest-fixture": "0.5.2",
     "vue": "3.3.8"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "np": {},
   "engines": {
