@@ -5,6 +5,7 @@ import extractRange, { RangeDetails } from "./extractRange";
 import PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"range"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "range",
@@ -18,6 +19,7 @@ describe("extractRange", () => {
     const result = await extractRange(db, makePgType("some_range"));
 
     const expected: RangeDetails = {
+      oid: expect.any(Number),
       name: "some_range",
       schemaName: "test",
       kind: "range",

@@ -28,20 +28,20 @@ export const classKindMap = {
 } as const;
 type ClassKind = (typeof classKindMap)[keyof typeof classKindMap];
 
-// Routines are not supported yet.
-// export const routineKindMap = {
-//   p: 'procedure',
-//   f: 'function',
-//   a: 'aggregate',
+export const routineKindMap = {
+  p: "procedure",
+  f: "function",
+  a: "aggregate",
 
-//   // Not supported (yet):
-//   // w: 'windowFunction',
-// };
-// type RoutineKind = typeof routineKindMap[keyof typeof routineKindMap];
+  // Not supported (yet):
+  // w: 'windowFunction',
+} as const;
+type RoutineKind = (typeof routineKindMap)[keyof typeof routineKindMap];
 
-export type Kind = TypeKind | ClassKind; //  | RoutineKind;
+export type Kind = TypeKind | ClassKind | RoutineKind;
 
 type PgType<K extends Kind = Kind> = {
+  oid: number;
   name: string;
   schemaName: string;
   kind: K;

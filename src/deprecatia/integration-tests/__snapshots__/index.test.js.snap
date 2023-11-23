@@ -274,6 +274,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "actor",
+      "oid": 16421,
       "tags": {},
     },
     {
@@ -818,6 +819,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "address",
+      "oid": 16462,
       "tags": {},
     },
     {
@@ -1022,6 +1024,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "category",
+      "oid": 16428,
       "tags": {},
     },
     {
@@ -1310,6 +1313,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "city",
+      "oid": 16469,
       "tags": {},
     },
     {
@@ -1514,6 +1518,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "country",
+      "oid": 16476,
       "tags": {},
     },
     {
@@ -2196,6 +2201,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "customer",
+      "oid": 16410,
       "tags": {},
     },
     {
@@ -3070,6 +3076,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "film",
+      "oid": 16435,
       "tags": {},
     },
     {
@@ -3313,6 +3320,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "film_actor",
+      "oid": 16447,
       "tags": {},
     },
     {
@@ -3552,6 +3560,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "film_category",
+      "oid": 16451,
       "tags": {},
     },
     {
@@ -3845,6 +3854,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "inventory",
+      "oid": 16493,
       "tags": {},
     },
     {
@@ -4049,6 +4059,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "language",
+      "oid": 16500,
       "tags": {},
     },
     {
@@ -4505,6 +4516,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "payment",
+      "oid": 16512,
       "tags": {},
     },
     {
@@ -5029,6 +5041,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "rental",
+      "oid": 16518,
       "tags": {},
     },
     {
@@ -5760,6 +5773,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "staff",
+      "oid": 16530,
       "tags": {},
     },
     {
@@ -6063,6 +6077,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "store",
+      "oid": 16541,
       "tags": {},
     },
   ],
@@ -6070,6 +6085,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
     {
       "comment": undefined,
       "name": "mpaa_rating",
+      "oid": 16387,
       "tags": {},
       "type": "enum",
       "values": [
@@ -6367,6 +6383,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "actor_info",
+      "oid": 16455,
       "tags": {},
     },
     {
@@ -6993,6 +7010,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "customer_list",
+      "oid": 16481,
       "tags": {},
     },
     {
@@ -7556,6 +7574,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "film_list",
+      "oid": 16486,
       "tags": {},
     },
     {
@@ -8119,6 +8138,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "nicer_but_slower_film_list",
+      "oid": 16505,
       "tags": {},
     },
     {
@@ -8258,6 +8278,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "sales_by_film_category",
+      "oid": 16523,
       "tags": {},
     },
     {
@@ -8454,6 +8475,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "sales_by_store",
+      "oid": 16546,
       "tags": {},
     },
     {
@@ -9012,6 +9034,7 @@ exports[`extractSchema > dvd-rental database > Should match snapshot 1`] = `
       ],
       "comment": undefined,
       "name": "staff_list",
+      "oid": 16551,
       "tags": {},
     },
   ],

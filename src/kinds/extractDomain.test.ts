@@ -5,6 +5,7 @@ import extractDomain, { DomainDetails } from "./extractDomain";
 import PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"domain"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "domain",
@@ -20,6 +21,7 @@ describe("extractDomain", () => {
     const result = await extractDomain(db, makePgType("some_domain"));
 
     const expected: DomainDetails = {
+      oid: expect.any(Number),
       name: "some_domain",
       schemaName: "test",
       kind: "domain",

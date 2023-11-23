@@ -2,14 +2,17 @@ import knex, { Knex } from "knex";
 import { ConnectionConfig } from "pg";
 import * as R from "ramda";
 
+import extractAggregate, { AggregateDetails } from "./kinds/extractAggregate";
 import extractCompositeType, {
   CompositeTypeDetails,
 } from "./kinds/extractCompositeType";
 import extractDomain, { DomainDetails } from "./kinds/extractDomain";
 import extractEnum, { EnumDetails } from "./kinds/extractEnum";
+import extractFunction, { FunctionDetails } from "./kinds/extractFunction";
 import extractMaterializedView, {
   MaterializedViewDetails,
 } from "./kinds/extractMaterializedView";
+import extractProcedure, { ProcedureDetails } from "./kinds/extractProcedure";
 import extractRange, { RangeDetails } from "./kinds/extractRange";
 import extractTable, { TableDetails } from "./kinds/extractTable";
 import extractView, { ViewDetails } from "./kinds/extractView";
@@ -25,24 +28,26 @@ interface DetailsMap {
   materializedView: MaterializedViewDetails;
   view: ViewDetails;
   compositeType: CompositeTypeDetails;
+  procedure: ProcedureDetails;
+  function: FunctionDetails;
+  aggregate: AggregateDetails;
 }
+
+type BaseSchema = {
+  [P in keyof DetailsMap as P extends string ? `${P}s` : never]: Array<
+    DetailsMap[P]
+  >;
+};
 
 /**
  * extractSchemas generates a record of all the schemas extracted, indexed by schema name.
  * The schemas are instances of this type.
  */
-export type Schema = {
+export type Schema = BaseSchema & {
   name: string;
-  domains: DomainDetails[];
-  enums: EnumDetails[];
-  ranges: RangeDetails[];
-  tables: TableDetails[];
-  views: ViewDetails[];
-  materializedViews: MaterializedViewDetails[];
-  compositeTypes: CompositeTypeDetails[];
 };
 
-const emptySchema: Omit<Schema, "name"> = {
+const createEmptySchema = (): BaseSchema => ({
   domains: [],
   enums: [],
   ranges: [],
@@ -50,7 +55,10 @@ const emptySchema: Omit<Schema, "name"> = {
   views: [],
   materializedViews: [],
   compositeTypes: [],
-};
+  procedures: [],
+  functions: [],
+  aggregates: [],
+});
 
 type Populator<K extends Kind> = (
   db: Knex,
@@ -61,10 +69,30 @@ const populatorMap: { [K in Kind]: Populator<K> } = {
   domain: extractDomain,
   enum: extractEnum,
   range: extractRange,
+
   table: extractTable,
   view: extractView,
   materializedView: extractMaterializedView,
   compositeType: extractCompositeType,
+
+  procedure: extractProcedure,
+  function: extractFunction,
+  aggregate: extractAggregate,
+} as const;
+
+const populate = <K extends Kind>(
+  db: Knex,
+  pgType: PgType<K>,
+): Promise<DetailsMap[K]> => {
+  const populator = populatorMap[pgType.kind];
+  return populator(db, pgType);
+};
+
+const appendDetails = <K extends Kind>(
+  schema: BaseSchema,
+  details: DetailsMap[K],
+) => {
+  (schema[`${details.kind}s`] as Array<DetailsMap[K]>).push(details);
 };
 
 /**
@@ -151,9 +179,7 @@ async function extractSchemas(
 
   const populated = await Promise.all(
     typesToExtract.map(async (pgType) => {
-      const result = await (
-        populatorMap[pgType.kind] as Populator<typeof pgType.kind>
-      )(db, pgType);
+      const result = await populate(db, pgType);
       options?.onProgress?.();
       return result;
     }),
@@ -164,13 +190,11 @@ async function extractSchemas(
     if (!(p.schemaName in schemas)) {
       schemas[p.schemaName] = {
         name: p.schemaName,
-        ...emptySchema,
+        ...createEmptySchema(),
       };
     }
-    (schemas[p.schemaName][`${p.kind}s`] as DetailsMap[typeof p.kind][]) = [
-      ...schemas[p.schemaName][`${p.kind}s`],
-      p,
-    ];
+
+    appendDetails(schemas[p.schemaName], p);
   }
 
   const result = options?.resolveViews ? resolveViewColumns(schemas) : schemas;

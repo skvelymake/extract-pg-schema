@@ -6,6 +6,7 @@ import extractView, { ViewColumn, ViewDetails } from "./extractView";
 import PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"view"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "view",
@@ -21,6 +22,7 @@ describe("extractView", () => {
     const result = await extractView(db, makePgType("some_view"));
 
     const expected: ViewDetails = {
+      oid: expect.any(Number),
       name: "some_view",
       schemaName: "test",
       kind: "view",

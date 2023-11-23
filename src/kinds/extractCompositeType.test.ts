@@ -12,6 +12,7 @@ const makePgType = (
   name: string,
   schemaName = "test",
 ): PgType<"compositeType"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "compositeType",
@@ -30,6 +31,7 @@ describe("extractCompositeType", () => {
     );
 
     const expected: CompositeTypeDetails = {
+      oid: expect.any(Number),
       name: "some_composite_type",
       schemaName: "test",
       kind: "compositeType",

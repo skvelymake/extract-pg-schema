@@ -1,17 +1,19 @@
 import { Knex } from "knex";
 
 import fetchExtensionItemIds from "../fetchExtensionItemIds";
-import PgType, { classKindMap, typeKindMap } from "./PgType";
+import PgType, { classKindMap, routineKindMap, typeKindMap } from "./PgType";
 
 const fetchTypes = async (
   db: Knex,
   schemaNames: string[],
 ): Promise<PgType[]> => {
-  // We want to ignore everything belonging to etensions. (Maybe this should be optional?)
-  const { extClassOids, extTypeOids } = await fetchExtensionItemIds(db);
+  // We want to ignore everything belonging to extensions. (Maybe this should be optional?)
+  const { extClassOids, extTypeOids, extProcOids } =
+    await fetchExtensionItemIds(db);
 
   return db
     .select(
+      db.raw("COALESCE(pg_class.oid, pg_type.oid) as oid"),
       "typname as name",
       "nspname as schemaName",
       db.raw(`case typtype
@@ -48,7 +50,35 @@ const fetchTypes = async (
     )
     .whereNotIn("pg_type.oid", extTypeOids)
     .whereIn("pg_type.typtype", ["c", ...Object.keys(typeKindMap)])
-    .whereIn("pg_namespace.nspname", schemaNames);
+    .whereIn("pg_namespace.nspname", schemaNames)
+    .union((q) =>
+      q
+        .select(
+          "pg_proc.oid as oid",
+          "proname as name",
+          "nspname as schemaName",
+          db.raw(`case prokind
+        ${Object.entries(routineKindMap)
+          .map(([key, routineKind]) => `when '${key}' then '${routineKind}'`)
+          .join("\n")}
+         end as kind`),
+          db.raw(`obj_description(pg_proc.oid, 'pg_proc') as comment`),
+        )
+        .from("pg_catalog.pg_proc")
+        .join(
+          "pg_catalog.pg_namespace",
+          "pg_namespace.oid",
+          "pg_proc.pronamespace",
+        )
+        .whereNotIn("pg_proc.oid", extProcOids)
+        .not.where((w) =>
+          w
+            .whereLike("pg_proc.prosrc", "range_constructor%")
+            .orWhereLike("pg_proc.prosrc", "multirange_constructor%"),
+        )
+        .whereIn("pg_proc.prokind", Object.keys(routineKindMap))
+        .whereIn("pg_namespace.nspname", schemaNames),
+    );
 };
 
 export default fetchTypes;

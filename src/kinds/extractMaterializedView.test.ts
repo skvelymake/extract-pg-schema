@@ -12,6 +12,7 @@ const makePgType = (
   name: string,
   schemaName = "test",
 ): PgType<"materializedView"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "materializedView",
@@ -32,6 +33,7 @@ describe("extractMaterializedView", () => {
     );
 
     const expected: MaterializedViewDetails = {
+      oid: expect.any(Number),
       name: "some_materialized_view",
       schemaName: "test",
       kind: "materializedView",

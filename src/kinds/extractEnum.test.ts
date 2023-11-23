@@ -5,6 +5,7 @@ import extractEnum, { EnumDetails } from "./extractEnum";
 import PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"enum"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "enum",
@@ -18,6 +19,7 @@ describe("extractEnum", () => {
     const result = await extractEnum(db, makePgType("some_enum"));
 
     const expected: EnumDetails = {
+      oid: expect.any(Number),
       name: "some_enum",
       schemaName: "test",
       kind: "enum",

@@ -4,11 +4,12 @@ export {
   default as extractSchemas,
   Schema,
 } from "./extractSchemas";
-export { type default as InformationSchemaColumn } from "./information_schema/InformationSchemaColumn";
-export { type default as InformationSchemaDomain } from "./information_schema/InformationSchemaDomain";
-export { type default as InformationSchemaTable } from "./information_schema/InformationSchemaTable";
-export { type default as InformationSchemaView } from "./information_schema/InformationSchemaView";
-export { type default as YesNo } from "./information_schema/YesNo";
+export type { default as InformationSchemaColumn } from "./information_schema/InformationSchemaColumn";
+export type { default as InformationSchemaDomain } from "./information_schema/InformationSchemaDomain";
+export type { default as InformationSchemaTable } from "./information_schema/InformationSchemaTable";
+export type { default as InformationSchemaView } from "./information_schema/InformationSchemaView";
+export type { default as YesNo } from "./information_schema/YesNo";
+export { type AggregateDetails } from "./kinds/extractAggregate";
 export {
   type AttributeType,
   type CompositeTypeAttribute,
@@ -16,11 +17,13 @@ export {
 } from "./kinds/extractCompositeType";
 export { type DomainDetails } from "./kinds/extractDomain";
 export { type EnumDetails } from "./kinds/extractEnum";
+export { type FunctionDetails } from "./kinds/extractFunction";
 export {
   type MaterializedViewColumn,
   type MaterializedViewColumnType,
   type MaterializedViewDetails,
 } from "./kinds/extractMaterializedView";
+export { type ProcedureDetails } from "./kinds/extractProcedure";
 export { type RangeDetails } from "./kinds/extractRange";
 export {
   type ColumnReference,
@@ -36,4 +39,4 @@ export {
   type ViewColumnType,
   type ViewDetails,
 } from "./kinds/extractView";
-export { type Kind, type default as PgType } from "./kinds/PgType";
+export type { Kind, default as PgType } from "./kinds/PgType";

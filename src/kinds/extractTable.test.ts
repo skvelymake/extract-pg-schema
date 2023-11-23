@@ -10,6 +10,7 @@ import extractTable, {
 import PgType from "./PgType";
 
 const makePgType = (name: string, schemaName = "test"): PgType<"table"> => ({
+  oid: 0,
   schemaName,
   name,
   kind: "table",
@@ -26,6 +27,7 @@ describe("extractTable", () => {
     const result = await extractTable(db, makePgType("some_table"));
 
     const expected: TableDetails = {
+      oid: expect.any(Number),
       name: "some_table",
       schemaName: "test",
       kind: "table",
