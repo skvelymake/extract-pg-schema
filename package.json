@@ -1,5 +1,5 @@
 {
-  "name": "@m1ch4ls/extract-pg-schema",
+  "name": "@skvelymake/extract-pg-schema",
   "version": "4.2.4",
   "keywords": [
     "postgresql",
