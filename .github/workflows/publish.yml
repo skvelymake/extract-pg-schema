@@ -16,6 +16,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - run: npm ci
       - run: npm run build
+      - run: git config user.name "GitHub Action"
+      - run: git config user.email "action@github.com"
       - run: npm version patch -m "Bump version to %s"
       - run: git push origin main
       - run: npm publish --access public
